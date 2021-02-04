@@ -3,15 +3,16 @@ import "./Nav.css";
 function Nav() {
   const [show, handleShow] = useState(false);
 
+  const transitionNavBar = () => {
+    if (window.scrollY > 100) {
+      handleShow(true);
+    } else {
+      handleShow(false);
+    }
+  };
   useEffect(() => {
-    window.addEventListener("scroll", () => {
-      if (window.scrollY > 100) {
-        handleShow(true);
-      } else handleShow(show);
-    });
-    return () => {
-      window.removeEventListener("scroll");
-    };
+    window.addEventListener("scroll", transitionNavBar);
+    return () => window.removeEventListener("scroll", transitionNavBar);
   }, []);
 
   return (
